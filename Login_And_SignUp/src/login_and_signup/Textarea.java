@@ -16,7 +16,7 @@ public class Textarea extends javax.swing.JFrame {
     private int sentCount = 0;
     
     private String allMessages = "";
-
+     MessageClass checker = new MessageClass();
     /**
      * Creates new form Textarea 
      */
@@ -52,6 +52,7 @@ public class Textarea extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         displayArea = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
@@ -126,6 +127,13 @@ public class Textarea extends javax.swing.JFrame {
 
         jLabel1.setText("EXIT?");
 
+        jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -133,23 +141,29 @@ public class Textarea extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(inputArea, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(sendBtn)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(sendBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(inputArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -168,6 +182,7 @@ public class Textarea extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        JOptionPane.showMessageDialog(this,"GoodBye");
         System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -214,13 +229,17 @@ public class Textarea extends javax.swing.JFrame {
             "Message: " + message + "\n" +
             "Hash: " + hash);
 
-     allMessages = "ID: " + userId + ", Message: " + message + ", Hash: " + hash + ", Recipient: " + phoneNumber + "\n";
+    
+
+     String summary = "ID: " + userId + ", Recipient: " + phoneNumber + ", Message: " + message + ", Hash: " + hash;
+
+      checker.storeMessage(summary);
+      checker.showAllMessages();
+     int index = checker.returnTotalMessage(); 
+     JOptionPane.showMessageDialog(this, "Total messages sent: " + index);
+
      
-     sentCount++;
-     
-        JOptionPane.showMessageDialog(this, allMessages);
-        JOptionPane.showMessageDialog(this, "Total messages sent: " + sentCount);
-        
+    sentCount++;
         
         if (sentCount >= messageLimit) {
             inputArea.setEnabled(false);
@@ -252,6 +271,11 @@ public class Textarea extends javax.swing.JFrame {
     private void inputAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputAreaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inputAreaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.setVisible(false);
+        new options().setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -290,6 +314,7 @@ public class Textarea extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea displayArea;
     private javax.swing.JTextField inputArea;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

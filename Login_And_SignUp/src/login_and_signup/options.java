@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  * @author RC_Student_lab
  */
 public class options extends javax.swing.JFrame {
-
+MessageClass check = new MessageClass();
     /**
      * Creates new form options
      */
@@ -213,8 +213,50 @@ public class options extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       JOptionPane.showMessageDialog(this,"Coming soon...");
+      String menu = "Choose an option:\n\n"
+                + "a - View all sent messages\n"
+                + "b - View message summaries\n"
+                + "c - Total messages sent\n"
+                + "d - Longest message with character count\n"
+                + "e - Search by ID or recipient\n"
+                + "f - Delete message by hash\n";
+
+        String input = JOptionPane.showInputDialog(null, menu, "Message Menu", JOptionPane.QUESTION_MESSAGE);
+
+        if (input == null) {
+            // User clicked cancel
+            JOptionPane.showMessageDialog(null, "No option selected. Exiting.");
+            return;
+        }
+ MessageClass checker = new MessageClass();
+ 
+        switch (input.toLowerCase()) {
+            case "a":
+                checker.displaySendersAndRecipients();
+            break;
+            case "b":
+                 JOptionPane.showMessageDialog(null, checker.getLongestMessage(), "Longest Message", JOptionPane.INFORMATION_MESSAGE);
+            break;
+            case "c":
+                 JOptionPane.showMessageDialog(null, "Total messages sent: " + checker.getMessageCount());
+                break;
+            case "d":
+                JOptionPane.showMessageDialog(null, "Message not sent");
+                break;
+            case "e":
+                String searchQuery = JOptionPane.showInputDialog("Enter ID or recipient to search:");
+                JOptionPane.showMessageDialog(null, "Searching for: " + searchQuery);
+                break;
+            case "f":
+                String hash = JOptionPane.showInputDialog("Enter message hash to delete:");
+                JOptionPane.showMessageDialog(null, "Message with hash " + hash + " deleted.");
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Invalid option. Please select a–f only.");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
+    
+    
 
     /**
      * @param args the command line arguments
